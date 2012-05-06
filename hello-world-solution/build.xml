@@ -1,0 +1,38 @@
+<project name="HelloWorld Exercise" default="build">
+    <!-- Import generic cxf build.xml file -->
+	<property environment="env"/>	
+    <import file="${env.CXF_HOME}/samples/common_build.xml"/>
+
+    <target name="generate.code" unless="codegen.notrequired">
+		<echo message="Generating code using wsdl2java..."/>
+        <wsdl2java file="HelloWorld.wsdl"/>    
+    	<touch file="${codegen.timestamp.file}"/>
+    </target>
+    
+    <!-- Targets to run the client and server --> 
+    <target name="helloworld.Server" depends="build">
+        <cxfrun classname="helloworld.Server" logging-properties-file="${basedir}/etc/logging.properties"/>
+    </target>
+    
+    <target name="helloworld.Client" depends="build">
+        <cxfrun classname="helloworld.Client" logging-properties-file="${basedir}/etc/logging.properties"/>
+    </target>
+	
+	<property name="cxf.war.file.name" value="HelloWorld"/>
+    <target name="war" depends="build">
+		<cxfwar wsdl="HelloWorld.wsdl" filename="${cxf.war.file.name}.war"/>
+    </target>
+
+	<!-- Targets below only for use with Artix 5.x or Fuse SF Spring Container -->
+	<target name="create.spring.war" depends="build">
+        <war destfile="${basedir}/build/hello_world.war" webxml="${basedir}/etc/dummy-web.xml">
+            <classes dir="build/classes"/>
+            <zipfileset dir="wsdl" prefix="WEB-INF/wsdl"/>
+            <zipfileset file="${basedir}/etc/hello-world-spring.xml" prefix="META-INF/spring"/>
+        </war>		
+	</target>
+	
+	<target name="deploy.spring.war" depends="create.spring.war">
+		<copy file="${basedir}/build/hello_world.war" todir="${env.CXF_HOME}/containers/spring_container/repository" />
+	</target>
+</project>

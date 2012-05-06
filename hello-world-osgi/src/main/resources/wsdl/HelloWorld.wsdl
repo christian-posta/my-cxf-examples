@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="HelloWorldService" targetNamespace="http://fusesource.com/training/HelloWorld" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://fusesource.com/training/HelloWorld" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://fusesource.com/training/HelloWorld" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://fusesource.com/training/HelloWorld">
+<xsd:element name="message" nillable="true" type="xsd:string"/>
+<xsd:element name="sayHelloResponse" nillable="true" type="xsd:string"/>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="sayHelloResponse">
+    <wsdl:part name="return" element="tns:sayHelloResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHello">
+    <wsdl:part name="message" element="tns:message">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HelloWorld">
+    <wsdl:operation name="sayHello">
+      <wsdl:input name="sayHello" message="tns:sayHello">
+    </wsdl:input>
+      <wsdl:output name="sayHelloResponse" message="tns:sayHelloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HelloWorldServiceSoapBinding" type="tns:HelloWorld">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sayHello">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sayHello">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sayHelloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HelloWorldService">
+    <wsdl:port name="SOAPOverHTTPEndpoint" binding="tns:HelloWorldServiceSoapBinding">
+      <soap:address location="http://localhost:8886/helloworld"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

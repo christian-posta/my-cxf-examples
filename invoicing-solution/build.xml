@@ -1,0 +1,31 @@
+<project name="Invoice Exercise" default="build">
+	<!-- Import generic cxf build.xml file -->
+	<property environment="env"/>	
+    <import file="${env.CXF_HOME}/samples/common_build.xml"/>
+						
+    <target name="generate.code" unless="codegen.notrequired">
+		<echo message="Generating code using wsdl2java..."/>
+        <wsdl2java file="InvoicingService.wsdl"/>    
+    	<touch file="${codegen.timestamp.file}"/>
+    </target>
+
+	<!-- Targets to run the client and server --> 
+	<target name="invoice.UseTypes">
+		<cxfrun classname="invoice.UseTypes" logging-properties-file="${basedir}/etc/logging.properties"/>
+	</target>		
+
+	<target name="invoice.Client">
+		<cxfrun classname="invoice.Client" logging-properties-file="${basedir}/etc/logging.properties"/>
+	</target>		
+
+	<target name="invoice.Server">
+		<cxfrun classname="invoice.Server" logging-properties-file="${basedir}/etc/invoiceServer.logging.properties"/>
+	</target>
+	
+	<target name="clean">
+		<delete>
+			<fileset dir="${build.classes.dir}" includes="**/*.class"/>
+			<fileset dir="${build.src.dir}" includes="**/*"/>
+		</delete>	
+	</target>	
+</project>

@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fusesource.training</groupId>
+    <artifactId>cxf-exercises</artifactId>
+    <packaging>pom</packaging>
+    <version>2010.08.01</version>
+
+    <name>Parent POM for the Apache CXF Exercises</name>
+
+    <modules>
+        <module>hello-world-osgi</module>
+        <module>jaxws-code-first</module>
+        <module>override-url</module>
+        <module>pojo-code-first</module>
+        <module>restful</module>
+        <module>hello-world</module>
+    </modules>
+    
+    <properties>
+        <java.code.version>1.6</java.code.version>
+        <equinox.ver>3.2.2</equinox.ver>
+        <!-- 
+        <spring.version>3.0.0.RELEASE</spring.version>
+         -->
+        <spring.version>2.5.6</spring.version>
+        <slf4j.version>1.4.3</slf4j.version>
+        <spring.osgi.version>1.1.2</spring.osgi.version>
+        <cxf.version>2.4.3-fuse-02-02</cxf.version>
+        <testng.version>5.10</testng.version>
+        <servicemix.version>4.2.0-fuse-02-00</servicemix.version>
+
+        <maven-bundle-plugin.version>2.0.1</maven-bundle-plugin.version>
+        <junit.version>4.10</junit.version>
+        <jaxb-api.version>2.1</jaxb-api.version>
+        <jaxb2-basics.version>0.5.0</jaxb2-basics.version>
+        <jaxws-spec.version>1.0</jaxws-spec.version>
+        <ws-metadata-spec.version>1.1.2</ws-metadata-spec.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>fusesource.com</id>
+            <url>http://repo.fusesource.com/maven2/
+            </url>
+        </repository>
+        <repository>
+            <id>maven-repo</id>
+            <name>maven repo</name>
+            <url>http://repo1.maven.org/maven2/
+            </url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>fusesource.com</id>
+            <url>http://repo.fusesource.com/maven2/</url>
+        </pluginRepository>
+
+        <pluginRepository>
+            <id>maven-repo</id>
+            <name>maven repo</name>
+            <url>http://repo1.maven.org/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <classifier>jdk15</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Use JDK 1.5 language features -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.code.version}</source>
+                    <target>${java.code.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>    

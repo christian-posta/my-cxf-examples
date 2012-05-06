@@ -1,0 +1,5 @@
+<project name="POJO Code First Exercise" default="build">
+    <!-- Import generic cxf build.xml file -->
+	<property environment="env"/>	
+    <import file="${env.CXF_HOME}/samples/common_build.xml"/>
+</project>

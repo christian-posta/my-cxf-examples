@@ -1,0 +1,31 @@
+<project name="Stock-Quote Demo" default="build">
+	<!-- Import generic cxf build.xml file -->
+	<property environment="env"/>	
+    <import file="${env.CXF_HOME}/samples/common_build.xml"/>
+						
+    <target name="generate.code" unless="codegen.notrequired">
+		<echo message="Generating code using wsdl2java..."/>
+        <wsdl2java file="StockQuoteDemo.wsdl"/>    
+    	<touch file="${codegen.timestamp.file}"/>
+    </target>
+
+	<!-- Targets to run the client and server --> 
+	<target name="stockquote.Client">
+		<celtixrun classname="stockquote.Client" logging-properties-file="${basedir}/etc/logging.properties"/>
+	</target>		
+
+	<target name="stockquote.Server">
+		<celtixrun classname="stockquote.Server" logging-properties-file="${basedir}/etc/logging.properties"/>
+	</target>
+	
+	<target name="package">
+		<zip destfile="celtix-stockquote-demo.zip">
+			<zipfileset dir="${basedir}" includes="src/**/*.*"/>				
+			<zipfileset dir="${basedir}" includes="wsdl/**/*.*"/>				
+			<zipfileset dir="${basedir}" includes="etc/**/*.*"/>				
+			<zipfileset dir="${basedir}" includes="build.xml"/>				
+			<zipfileset dir="${basedir}" includes="stockquoteclient.bat"/>				
+			<zipfileset dir="${basedir}" includes="stockquoteserver.bat"/>				
+		</zip>
+	</target>
+</project>

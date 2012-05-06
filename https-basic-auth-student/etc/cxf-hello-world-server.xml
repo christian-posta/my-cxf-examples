@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jaxws="http://cxf.apache.org/jaxws"
+	  xmlns:csec="http://cxf.apache.org/configuration/security"
+      xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+      xmlns:soap="http://cxf.apache.org/bindings/soap"
+      xmlns:cxf="http://cxf.apache.org/core"
+      xsi:schemaLocation="
+http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://cxf.apache.org/bindings/soap http://cxf.apache.org/schema/bindings/soap.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+  <!--<bean name="cxf" class="org.apache.cxf.bus.CXFBusImpl">-->
+  <!--</bean>-->
+
+  <!--
+    This configuration sets the parameters for the ports that
+    will be allocated on the CXF (default) bus. We enable
+    port 9000 for TLS to authenticate as "CN=HelloWorld".
+  -->
+  <httpj:engine-factory bus="cxf">
+    <httpj:engine port="9090">
+      <httpj:tlsServerParameters>
+          <csec:keyManagers keyPassword="HelloWorld12345">
+             <csec:keyStore type="JKS" password="HelloWorldKeyStore12345"
+                  file="/Users/cposta/dev/training/louisville-may-2012/services/cxf-exercises/https-basic-auth-student/certs/hello-world.jks"/>
+          </csec:keyManagers>
+          <csec:cipherSuitesFilter>
+             <!-- these filters ensure that a ciphersuite with
+               export-suitable or null encryption is used,
+               but exclude anonymous Diffie-Hellman key change as
+               this is vulnerable to man-in-the-middle attacks -->
+             <csec:include>.*_EXPORT_.*</csec:include>
+             <csec:include>.*_EXPORT1024_.*</csec:include>
+             <csec:include>.*_WITH_DES_.*</csec:include>
+             <csec:include>.*_WITH_NULL_.*</csec:include>
+             <csec:exclude>.*_DH_anon_.*</csec:exclude>
+          </csec:cipherSuitesFilter>
+          <csec:clientAuthentication want="false" required="false"/>
+       </httpj:tlsServerParameters>
+     </httpj:engine>
+  </httpj:engine-factory>
+
+<!-- Uncomment below to enable CXF logging and message snooping
+	Newer simplified 'features' for specifying logging    -->
+
+    <!--<cxf:bus>-->
+        <!--<cxf:features>-->
+            <!--<cxf:logging/>-->
+        <!--</cxf:features>-->
+    <!--</cxf:bus>-->
+
+
+</beans>

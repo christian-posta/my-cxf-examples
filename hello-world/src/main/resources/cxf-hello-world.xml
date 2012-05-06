@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  					    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+<!-- Uncomment below to enable CXF logging and message snooping 
+	Newer simplified 'features' for specifying logging  
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+-->
+
+
+</beans>

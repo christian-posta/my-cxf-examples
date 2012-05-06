@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.fusesource.training</groupId>
+		<artifactId>cxf-exercises</artifactId>
+		<version>2010.08.01</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>cxf-exercises-hello-world
+	</artifactId>
+	<packaging>bundle</packaging>
+
+
+	<name>CXF Bootcamp :: Hello OSGi Bundle</name>
+
+	<properties />
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>${maven-bundle-plugin.version}
+				</version>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${pom.artifactId}
+						</Bundle-SymbolicName>
+						<manifestLocation>./target/META-INF
+						</manifestLocation>
+						<Export-Package>
+							!com.fusesource.training.helloworld.service.impl,
+							com.fusesource.training*
+                        </Export-Package>
+						<Import-Package>
+							javax.jws,
+							javax.wsdl,
+							META-INF.cxf,
+							META-INF.cxf.osgi,
+							org.apache.cxf.bus,
+							org.apache.cxf.bus.spring,
+							org.apache.cxf.bus.resource,
+							org.apache.cxf.configuration.spring,
+							org.apache.cxf.resource,
+							org.springframework.beans.factory.config,
+							*
+                        </Import-Package>
+						<Private-Package>
+							com.fusesource.training.helloworld.service.impl
+						</Private-Package>
+						<Require-Bundle>
+							org.apache.cxf.bundle
+                        </Require-Bundle>
+						<!--
+							<DynamicImport-Package>*</DynamicImport-Package>
+						-->
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxf.version}</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>${project.build.directory}/generated/cxf
+							</sourceRoot>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/HelloWorld.wsdl
+									</wsdl>
+									<extraargs>
+										<extraarg>-verbose</extraarg>
+									</extraargs>
+								</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>server</id>
+			<build>
+				<defaultGoal>test</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>test</phase>
+								<goals>
+									<goal>java</goal>
+								</goals>
+								<configuration>
+									<mainClass>com.fusesource.training.helloworld.server.Server
+									</mainClass>
+
+									<systemProperties>
+										<systemProperty>
+											<key>cxf.config.file</key>
+											<value>etc\test-server.xml</value>
+										</systemProperty>
+									</systemProperties>
+
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>client</id>
+			<build>
+				<defaultGoal>test</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>test</phase>
+								<goals>
+									<goal>java</goal>
+								</goals>
+								<configuration>
+									<mainClass>com.fusesource.training.helloworld.client.Client
+									</mainClass>
+
+									<systemProperties>
+										<systemProperty>
+											<key>cxf.config.file</key>
+											<value>etc\test-client.xml</value>
+										</systemProperty>
+									</systemProperties>
+
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty
+			</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

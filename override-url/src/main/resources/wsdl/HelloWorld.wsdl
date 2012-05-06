@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="HelloWorld.wsdl" 
+    targetNamespace="http://fusesource.com/ps/courseware/HelloWorld"
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:tns="http://fusesource.com/ps/courseware/HelloWorld"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <message name="sayHello">
+        <part name="message" type="xsd:string"/>
+    </message>
+    <message name="sayHelloResponse">
+        <part name="return" type="xsd:string"/>
+    </message>
+    <portType name="HelloWorld">
+        <operation name="sayHello">
+            <input message="tns:sayHello" name="sayHello"/>
+            <output message="tns:sayHelloResponse" name="sayHelloResponse"/>
+        </operation>
+    </portType>
+    <binding name="HelloWorldSOAPBinding" type="tns:HelloWorld">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="sayHello">
+            <soap:operation soapAction="" style="rpc"/>
+            <input name="sayHello">
+                <soap:body use="literal"/>
+            </input>
+            <output name="sayHelloResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="HelloWorldService">
+        <port binding="tns:HelloWorldSOAPBinding" name="SOAPOverHTTPEndpoint">
+            <soap:address location="http://localhost:9090/helloworld"/>
+        </port>
+    </service>
+</definitions>

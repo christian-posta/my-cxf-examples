@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="MacRoman" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-05-04T14:32:37</date>
+  <millis>1336167157142</millis>
+  <sequence>0</sequence>
+  <logger>org.apache.cxf.bus.spring.BusApplicationContext</logger>
+  <level>INFO</level>
+  <class>org.springframework.context.support.AbstractApplicationContext</class>
+  <method>prepareRefresh</method>
+  <thread>10</thread>
+  <message>Refreshing org.apache.cxf.bus.spring.BusApplicationContext@398825b3: startup date [Fri May 04 14:32:37 MST 2012]; root of context hierarchy</message>
+</record>
+<record>
+  <date>2012-05-04T14:32:37</date>
+  <millis>1336167157219</millis>
+  <sequence>1</sequence>
+  <logger>org.apache.cxf.bus.spring.BusApplicationContext</logger>
+  <level>INFO</level>
+  <class>org.apache.cxf.bus.spring.BusApplicationContext</class>
+  <method>getConfigResources</method>
+  <thread>10</thread>
+  <message>Loaded configuration file cxf-customer-service.xml.</message>
+</record>
+<record>
+  <date>2012-05-04T14:32:37</date>
+  <millis>1336167157281</millis>
+  <sequence>2</sequence>
+  <logger>org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader</logger>
+  <level>INFO</level>
+  <class>org.springframework.beans.factory.xml.XmlBeanDefinitionReader</class>
+  <method>loadBeanDefinitions</method>
+  <thread>10</thread>
+  <message>Loading XML bean definitions from class path resource [cxf-customer-service.xml]</message>
+</record>
+<record>
+  <date>2012-05-04T14:32:37</date>
+  <millis>1336167157973</millis>
+  <sequence>3</sequence>
+  <logger>org.apache.cxf.service.factory.ReflectionServiceFactoryBean</logger>
+  <level>INFO</level>
+  <class>org.apache.cxf.service.factory.ReflectionServiceFactoryBean</class>
+  <method>buildServiceFromWSDL</method>
+  <thread>10</thread>
+  <message>Creating Service {http://com.iona.ps/services/Customer}CustomerService from WSDL: http://localhost:9000/CustomerService?wsdl</message>
+</record>
+<record>
+  <date>2012-05-04T14:32:38</date>
+  <millis>1336167158324</millis>
+  <sequence>4</sequence>
+  <logger>org.apache.cxf.services.CustomerService.SOAPOverHTTP.CustomerService</logger>
+  <level>INFO</level>
+  <class>org.apache.cxf.services.CustomerService.SOAPOverHTTP.CustomerService</class>
+  <thread>10</thread>
+  <message>Outbound Message
+---------------------------
+ID: 1
+Address: http://localhost:9000/CustomerService
+Encoding: UTF-8
+Content-Type: text/xml
+Headers: {Accept=[*/*], SOAPAction=[""]}
+Payload: &lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;&lt;soap:Body&gt;&lt;ns2:findCustomerByName xmlns:ns2="http://com.iona.ps/services/Customer"&gt;&lt;firstName&gt;Christian&lt;/firstName&gt;&lt;lastName&gt;Posta&lt;/lastName&gt;&lt;/ns2:findCustomerByName&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;
+--------------------------------------</message>
+</record>
+<record>
+  <date>2012-05-04T14:32:38</date>
+  <millis>1336167158425</millis>
+  <sequence>5</sequence>
+  <logger>org.apache.cxf.services.CustomerService.SOAPOverHTTP.CustomerService</logger>
+  <level>INFO</level>
+  <class>org.apache.cxf.services.CustomerService.SOAPOverHTTP.CustomerService</class>
+  <thread>10</thread>
+  <message>Inbound Message
+----------------------------
+ID: 1
+Response-Code: 200
+Encoding: UTF-8
+Content-Type: text/xml;charset=UTF-8
+Headers: {Content-Length=[386], content-type=[text/xml;charset=UTF-8], Server=[Jetty(7.5.4.v20111024)]}
+Payload: &lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;&lt;soap:Body&gt;&lt;ns2:findCustomerByNameResponse xmlns:ns2="http://com.iona.ps/services/Customer"&gt;&lt;return&gt;&lt;age&gt;42&lt;/age&gt;&lt;firstName&gt;Christian&lt;/firstName&gt;&lt;lastName&gt;Posta&lt;/lastName&gt;&lt;skypeId&gt;Christian.Posta&lt;/skypeId&gt;&lt;telephoneNumber&gt;345345&lt;/telephoneNumber&gt;&lt;/return&gt;&lt;/ns2:findCustomerByNameResponse&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;
+--------------------------------------</message>
+</record>
+</log>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jaxws="http://cxf.apache.org/jaxws"
+	  xmlns:csec="http://cxf.apache.org/configuration/security"
+  	  xmlns:http="http://cxf.apache.org/transports/http/configuration"      
+      xmlns:soap="http://cxf.apache.org/bindings/soap"
+      xmlns:cxf="http://cxf.apache.org/core"
+      xsi:schemaLocation="
+http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd      
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://cxf.apache.org/bindings/soap http://cxf.apache.org/schema/bindings/soap.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+   <http:conduit name="{http://www.iona.com/ps/courseware/HelloWorld}SOAPOverHTTPEndpoint.http-conduit">
+     <http:tlsClientParameters disableCNCheck="true">
+        <csec:trustManagers>
+          <csec:keyStore type="JKS" password="client54321"
+                         file="certs/hello-world-client.jks"/>
+        </csec:trustManagers>
+        <csec:cipherSuitesFilter>
+           <!-- these filters ensure that a ciphersuite with
+             export-suitable or null encryption is used,
+             but exclude anonymous Diffie-Hellman key change as
+             this is vulnerable to man-in-the-middle attacks -->
+           <csec:include>.*_EXPORT_.*</csec:include>
+           <csec:include>.*_EXPORT1024_.*</csec:include>
+           <csec:include>.*_WITH_DES_.*</csec:include>
+           <csec:include>.*_WITH_NULL_.*</csec:include>
+           <csec:exclude>.*_DH_anon_.*</csec:exclude>
+        </csec:cipherSuitesFilter>
+     </http:tlsClientParameters>
+   </http:conduit>
+   
+<!-- Uncomment below to enable CXF logging and message snooping 
+	Newer simplified 'features' for specifying logging  
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+-->
+   
+</beans>

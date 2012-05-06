@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="MacRoman" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2012-05-04T15:01:02</date>
+  <millis>1336168862353</millis>
+  <sequence>0</sequence>
+  <logger>org.apache.cxf.bus.spring.BusApplicationContext</logger>
+  <level>INFO</level>
+  <class>org.springframework.context.support.AbstractApplicationContext</class>
+  <method>prepareRefresh</method>
+  <thread>10</thread>
+  <message>Refreshing org.apache.cxf.bus.spring.BusApplicationContext@398825b3: startup date [Fri May 04 15:01:02 MST 2012]; root of context hierarchy</message>
+</record>
+<record>
+  <date>2012-05-04T15:01:02</date>
+  <millis>1336168862445</millis>
+  <sequence>1</sequence>
+  <logger>org.apache.cxf.bus.spring.BusApplicationContext</logger>
+  <level>INFO</level>
+  <class>org.apache.cxf.bus.spring.BusApplicationContext</class>
+  <method>getConfigResources</method>
+  <thread>10</thread>
+  <message>Loaded configuration file cxf-customer-service.xml.</message>
+</record>
+<record>
+  <date>2012-05-04T15:01:02</date>
+  <millis>1336168862529</millis>
+  <sequence>2</sequence>
+  <logger>org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader</logger>
+  <level>INFO</level>
+  <class>org.springframework.beans.factory.xml.XmlBeanDefinitionReader</class>
+  <method>loadBeanDefinitions</method>
+  <thread>10</thread>
+  <message>Loading XML bean definitions from class path resource [cxf-customer-service.xml]</message>
+</record>
+</log>

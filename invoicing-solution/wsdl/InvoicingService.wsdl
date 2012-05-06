@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="InvoicingService.wsdl" 
+	targetNamespace="http://www.iona.com/ps/courseware/InvoicingService" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:inv="http://www.iona.com/ps/courseware/Invoice" 
+	xmlns:jms="http://cxf.apache.org/transports/jms" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://www.iona.com/ps/courseware/InvoicingService" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xformat="http://cxf.apache.org/bindings/xformat" 
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+    <types>
+        <schema targetNamespace="http://www.iona.com/ps/courseware/InvoicingService" 
+        	xmlns="http://www.w3.org/2001/XMLSchema" 
+        	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://www.iona.com/ps/courseware/Invoice" schemaLocation="Invoice.xsd" />
+        </schema>
+    </types>
+    <message name="sendInvoice">
+        <part element="inv:Invoice" name="invoice" />
+    </message>
+    <portType name="Invoicing">
+        <operation name="sendInvoice">
+            <input message="tns:sendInvoice" name="sendInvoice" />
+        </operation>
+    </portType>
+    <binding name="InvoicingSOAPBinding" type="tns:Invoicing">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="sendInvoice">
+            <soap:operation soapAction="" style="document" />
+            <input name="sendInvoice">
+                <soap:body use="literal" />
+            </input>
+        </operation>
+    </binding>
+<!--
+    - Use this binding for pure XML rather than SOAP payload.
+    -
+<binding name="Invoicing_XMLBinding" type="tns:Invoicing">
+    <xformat:binding xmlns:ns3="http://schemas.xmlsoap.org/wsdl/" />
+    <operation name="sendInvoice">
+      <input name="sendInvoice">
+      <xformat:body xmlns:ns4="http://www.iona.com/ps/courseware/InvoicingService" 
+      	xmlns:ns3="http://schemas.xmlsoap.org/wsdl/" 
+      	rootNode="ns4:sendInvoice" />
+      </input>
+    </operation>
+</binding>  
+    -->
+    <service name="InvoicingService">
+        <port binding="tns:InvoicingSOAPBinding" name="SOAPOverHTTPEndpoint">
+            <soap:address location="http://localhost:9090/InvoicingService" />
+	    <!-- Use the address below instead of the soap:address element if you want 
+		to use the non-SOAP HTTP transport.
+             - Note the only difference is that we're using the address element 
+             from the http rather than soap namespace.
+            <http:address location="http://localhost:9090/InvoicingService"/>
+            -->
+        </port>
+    </service>
+</definitions>

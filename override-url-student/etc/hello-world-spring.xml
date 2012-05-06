@@ -1,0 +1,20 @@
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="
+        http://cxf.apache.org/jaxws 
+        http://cxf.apache.org/schemas/jaxws.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <jaxws:endpoint id="HelloWorld"
+        implementor="#HelloWorldImpl"
+        address="http://localhost:9090/helloworld"
+        wsdlLocation="HelloWorld.wsdl"
+        endpointName="hw:SOAPOverHTTPEndpoint"
+        serviceName="hw:HelloWorldService"
+        xmlns:hw="http://www.iona.com/ps/courseware/HelloWorld"/>
+
+    <bean id="HelloWorldImpl" class="helloworld.HelloWorldImpl"/>
+</beans>
